@@ -4,6 +4,9 @@ selain -> palvelin HTTP POST https://fullstack-exampleapp.herokuapp.com/new_note
 
 selain -> palvelin HTTP GET https://fullstack-exampleapp.herokuapp.com/notes
 palvelin -> selain HTML koodi.
+
+//Äsken ladattu HTML käskee ladata main.css ja main.js tiedostot.
+
 selain -> palvelin HTTP GET https://fullstack-exampleapp.herokuapp.com/main.css
 palvelin -> selain css koodi.
 selain -> palvelin HTTP GET https://fullstack-exampleapp.herokuapp.com/main.js
