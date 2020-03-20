@@ -1,0 +1,17 @@
+selain -> palvelin HTTP POST https://fullstack-exampleapp.herokuapp.com/new_note
+
+//POST pyyntö aikaansaa sivun sisällön päivittämisen, uusi olio lisätään taulukkoon, jonka jälkeen sivu pyydetään lataamaan uudelleen.
+
+selain -> palvelin HTTP GET https://fullstack-exampleapp.herokuapp.com/notes
+palvelin -> selain HTML koodi.
+selain -> palvelin HTTP GET https://fullstack-exampleapp.herokuapp.com/main.css
+palvelin -> selain css koodi.
+selain -> palvelin HTTP GET https://fullstack-exampleapp.herokuapp.com/main.js
+palvelin -> selain Javacript koodi.
+
+//HTML suoritettu, alkaa suorittaa äsken saatua JavaScript koodia.
+
+selain -> palvelin HTTP GET https://fullstack-exampleapp.herokuapp.com/data.json
+palvelin -> selain json raakadata.
+
+//Data tulkitaan ja renderöidään näytölle uudella sisällöllä.
