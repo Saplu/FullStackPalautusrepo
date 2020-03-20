@@ -1,0 +1,4 @@
+selain -> palvelin HTTP POST https://fullstack-exampleapp.herokuapp.com/new_note_spa
+
+//Valmiina selaimessa sivun edellisestä latauksesta oleva JavaScript koodi lähettää JSON-muotoisen datapaketin palvelimelle,
+//jonka jälkeen JavaScript - tapahtumakäsittelijä lisää uuden olion listaan ja piirtää lopputuloksen näytölle.
