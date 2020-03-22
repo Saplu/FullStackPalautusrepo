@@ -3,19 +3,24 @@ import ReactDOM from 'react-dom';
 
 const App = () => {
   const course = 'Half Stack application development'
-  const part1 = 'Fundamentals of React'
-  const exercises1 = 10
-  const part2 = 'Using props to pass data'
-  const exercises2 = 7
-  const part3 = 'State of a component'
-  const exercises3 = 14
+  const part1 = {
+    name: 'Fundamentals of React',
+    exercises: 10
+  }
+  const part2 = {
+    name: 'Using props to pass data',
+    exercises: 7
+  }
+  const part3 = {
+    name: 'State of a component',
+    exercises: 14
+  }
 
   return (
     <div>
       <Header course={course} />
-      <Content part1={part1} part2={part2} part3={part3} 
-      exercises1={exercises1} exercises2={exercises2} exercises3={exercises3} />
-      <Total e1={exercises1} e2={exercises2} e3={exercises3} />
+      <Content part1={part1} part2={part2} part3={part3}/>
+      <Total e1={part1.exercises} e2={part2.exercises} e3={part3.exercises} />
     </div>
   )
 }
@@ -31,9 +36,9 @@ const Header = (props) => {
 const Content = (props) => {
   return(
     <div>
-      <Part pName={props.part1} eCount={props.exercises1} />
-      <Part pName={props.part2} eCount={props.exercises2} />
-      <Part pName={props.part3} eCount={props.exercises3} />
+      <Part pName={props.part1.name} eCount={props.part1.exercises} />
+      <Part pName={props.part2.name} eCount={props.part2.exercises} />
+      <Part pName={props.part3.name} eCount={props.part3.exercises} />
     </div>
   )
 }
