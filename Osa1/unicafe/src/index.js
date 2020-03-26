@@ -25,6 +25,7 @@ const App = (props) => {
       <Stats text='good' count={good}/>
       <Stats text='neutral' count={neutral}/>
       <Stats text='bad' count={bad}/>
+      <CalculateStats good = {good} neutral = {neutral} bad = {bad} />
     </div>
   )
 }
@@ -42,6 +43,13 @@ const Stats = ({text, count}) =>
   <div>
     {text} {count}
   </div>
+
+const CalculateStats = (props) =>
+<div>
+  <p>all {props.good + props.neutral + props.bad}</p>
+  <p>average {(props.good - props.bad) / (props.good + props.neutral + props.bad)}</p>
+  <p>positive {props.good / (props.good + props.neutral + props.bad) * 100}%</p>
+</div>
 
 ReactDOM.render(
   <App />, document.getElementById('root')
