@@ -43,21 +43,24 @@ const Statistics = ({good, neutral, bad}) => {
     )
   }
   return(
-    <div>
+    <table>
+      <tbody>
       <StatisticsLine text='good' value={good}/>
       <StatisticsLine text='neutral' value={neutral}/>
       <StatisticsLine text='bad' value={bad}/>
       <StatisticsLine text='all' value={good + neutral + bad}/>
       <StatisticsLine text='average' value={(good - bad) / (good + neutral + bad)}/>
-      <StatisticsLine text='positive' value={good / (good + neutral + bad)} extra='%'/>
-    </div>
+      <StatisticsLine text='positive' value={good / (good + neutral + bad) * 100} extra='%'/>
+      </tbody>
+    </table>
   )
 }
 
 const StatisticsLine = ({text, value, extra}) => 
-  <div>
-    {text} {value}{extra}
-  </div>
+  <tr>
+    <td>{text}</td>
+    <td>{value}{extra}</td>
+  </tr>
 
 ReactDOM.render(
   <App />, document.getElementById('root')
