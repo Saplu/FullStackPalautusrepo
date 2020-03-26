@@ -5,6 +5,7 @@ const App = (props) => {
   const [selected, setSelected] = useState(0)
   const [points, setPoints] = 
   useState(Array.apply(null, new Array(anecdotes.length)).map(Number.prototype.valueOf,0))
+  const [winner, setWinner] = useState(0)
 
   const NewRandom = () =>
     setSelected(GetRand(props.anecdotes.length))
@@ -13,15 +14,21 @@ const App = (props) => {
     const copy = [...points]
     copy[selected] += 1
     setPoints(copy)
+    let max = copy.indexOf(Math.max(...copy))
+    setWinner(max)
   }
 
 
   return (
     <div>
+      <h2>Anecdote of the day</h2>
       <p>{props.anecdotes[selected]}</p>
       <p>Votes: {points[selected]}</p>
       <Button handleClick={Vote} text='vote'/>
       <Button handleClick={NewRandom} text='Random anecdote'/>
+      <h2>Anecdote with most votes</h2>
+      <p>{props.anecdotes[winner]}</p>
+      <p>Has {points[winner]} votes</p>
     </div>
   )
 }
