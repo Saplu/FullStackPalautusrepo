@@ -22,10 +22,7 @@ const App = (props) => {
       <Button handleClick={handleNeutralClick} text='neutral'/>
       <Button handleClick={handleBadClick} text='bad'/>
       <Header text='statistics' />
-      <Stats text='good' count={good}/>
-      <Stats text='neutral' count={neutral}/>
-      <Stats text='bad' count={bad}/>
-      <CalculateStats good = {good} neutral = {neutral} bad = {bad} />
+      <Statistics good = {good} neutral = {neutral} bad = {bad} />
     </div>
   )
 }
@@ -39,16 +36,14 @@ const Button = ({handleClick, text}) => (
 const Header = ({text}) =>
   <h1>{text}</h1>
 
-const Stats = ({text, count}) =>
-  <div>
-    {text} {count}
-  </div>
-
-const CalculateStats = (props) =>
+const Statistics = ({good, neutral, bad}) =>
 <div>
-  <p>all {props.good + props.neutral + props.bad}</p>
-  <p>average {(props.good - props.bad) / (props.good + props.neutral + props.bad)}</p>
-  <p>positive {props.good / (props.good + props.neutral + props.bad) * 100}%</p>
+  <div>good {good}</div>
+  <div>neutral {neutral}</div>
+  <div>bad {bad}</div>
+  <div>all {good + neutral + bad}</div>
+  <div>average {(good - bad) / (good + neutral + bad)}</div>
+  <div>positive {good / (good + neutral + bad) * 100}%</div>
 </div>
 
 ReactDOM.render(
