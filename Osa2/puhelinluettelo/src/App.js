@@ -9,17 +9,27 @@ const App = () => {
 
     const addPerson = (event) => {
         event.preventDefault()
+        if(checkIfNameExists())
+            window.alert(`${newName} already exists, abort mission!`)
+        else{
         const persObject = {
             name: newName,
             id: newName
         }
         setPersons(persons.concat(persObject))
         setNewName('')
+        }
     }
 
     const handleNameChange = (event) => {
-        console.log(event.target.value)
         setNewName(event.target.value)
+    }
+
+    const checkIfNameExists = () => {
+        const names = persons.map(p => p.name)
+        return(
+            names.includes(newName)
+        )
     }
   
     return (
