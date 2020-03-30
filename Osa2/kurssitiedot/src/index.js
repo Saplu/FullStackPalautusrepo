@@ -49,6 +49,7 @@ const courses = [course, second]
 
   return (
     <div>
+      <h1>Web development curriculum</h1>
       {courses.map(c => <Course key={c.id} name={c.name} parts={c.parts}/>)}
     </div>
   )
@@ -68,7 +69,7 @@ const Course = ({name, parts}) => {
 const Header = ({course}) => {
   return(
     <div>
-      <h1>{course}</h1>
+      <h2>{course}</h2>
     </div>
   )
 }
@@ -84,7 +85,7 @@ const Content = ({parts}) => {
 const Total = ({parts}) => {
   return(
     <div>
-      <h4>Number of exercises: {parts.reduce((previous, current) => previous + current.exercises, 0)}</h4>
+      <h4>Number of exercises: {parts.reduce((previous, current) => console.log(previous, current) || previous + current.exercises, 0)}</h4>
     </div>
   )
 }
