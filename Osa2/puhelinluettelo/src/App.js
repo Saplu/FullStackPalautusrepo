@@ -1,4 +1,7 @@
 import React, {useState} from 'react';
+import PersonChecker from './components/PersonChecker'
+import Person from './components/Person'
+import Persons from './components/Persons'
 
 const App = () => {
     const [ persons, setPersons] = useState([
@@ -17,7 +20,8 @@ const App = () => {
 
     const addPerson = (event) => {
         event.preventDefault()
-        if(checkIfNameExists())
+        console.log(newName)
+        if(PersonChecker({persons, newName}))
             window.alert(`${newName} already exists, abort mission!`)
         else{
         const persObject = {
@@ -42,15 +46,6 @@ const App = () => {
     const handleFilterChange = (event) => {
       setFilter(event.target.value)
     }
-
-    const checkIfNameExists = () => {
-        const names = persons.map(p => p.name)
-        return(
-            names.includes(newName)
-        )
-    }
-
-    const personsToShow = persons.filter(p => p.name.toLowerCase().includes(filter.toLowerCase()))
   
     return (
       <div>
@@ -79,18 +74,9 @@ const App = () => {
           </div>
         </form>
         <h2>Numbers</h2>
-        {personsToShow.map(p => <Person key={p.name} name={p.name} number={p.number}/>)}
+        <Persons persons={persons} filterString={filter}/>
       </div>
     )
   }
-
-const Person = ({name, number}) => {
-
-    return(
-        <div>
-            <h4>{name} {number}</h4>
-        </div>
-    )
-}
 
 export default App;
