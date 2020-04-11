@@ -17,6 +17,11 @@ const App = () => {
     setFilter(event.target.value)
   }
 
+  const ShowSingle = (name) => {
+    console.log(`Only ${name} to be shown`)
+    setFilter(name)
+  }
+
   return (
     <div>
       <form>
@@ -24,7 +29,7 @@ const App = () => {
         value={filter}
         onChange={handleFilterChange}/>
       </form>
-      <Countries countries={countries} filterString={filter}/>
+      <Countries countries={countries} filterString={filter} showSingle={ShowSingle}/>
     </div>
   );
 }

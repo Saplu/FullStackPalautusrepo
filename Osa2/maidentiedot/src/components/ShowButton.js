@@ -1,18 +1,11 @@
 import React from 'react'
 
-const ShowButton = ({name}) => {
+const ShowButton = ({name, showSingle}) => {
     console.log(name)
     return(
-        <button onClick={(event) => changeFilter({name, event})}>
+        <button onClick={showSingle}>
             Show
         </button>
-    )
-}
-
-const changeFilter = ({name, event}) => {
-    console.log(name)
-    return(
-        name
     )
 }
 
