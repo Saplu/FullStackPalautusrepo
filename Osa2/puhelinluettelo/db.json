@@ -21,19 +21,14 @@
       "id": 4
     },
     {
+      "name": "Pasi",
+      "number": "12345467",
+      "id": 7
+    },
+    {
       "name": "Pinja",
       "number": "7654321",
-      "id": 5
-    },
-    {
-      "name": "Pasi",
-      "number": "1233467",
-      "id": 6
-    },
-    {
-      "name": "Meijän koti",
-      "number": "18276",
-      "id": 7
+      "id": 8
     }
   ]
 }
