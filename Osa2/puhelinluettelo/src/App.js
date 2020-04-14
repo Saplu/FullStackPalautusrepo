@@ -20,13 +20,14 @@ const App = () => {
     const addPerson = (event) => {
         event.preventDefault()
         console.log(newName)
-        if(PersonChecker({persons, newName}))
-            window.alert(`${newName} already exists, abort mission!`)
-        else{
         const persObject = {
-            name: newName,
-            number: newNumber
+          name: newName,
+          number: newNumber
         }
+        if(PersonChecker({persons, newName}))
+          update()
+            //window.alert(`${newName} already exists, abort mission!`)
+        else{
 
         personService
           .create(persObject)
@@ -43,6 +44,20 @@ const App = () => {
         personService
         .deletePerson(id)
         setPersons(persons.filter(p => p.id !== id))
+      }
+    }
+
+    const update = () => {
+      if (window.confirm(`${newName} already exists. Want to replace the old number?`)){
+        const person = persons.find(p => p.name === newName)
+        const changedPerson = {...person, number: newNumber}
+          personService
+          .update(changedPerson.id, changedPerson)
+          .then(returnedPerson => {
+            setPersons(persons.map(p => p.id !== changedPerson.id ? p : returnedPerson))
+          })
+          setNewName('')
+          setNewNumber('')
       }
     }
 
