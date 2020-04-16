@@ -2,12 +2,14 @@ import React, {useState, useEffect} from 'react';
 import PersonChecker from './components/PersonChecker'
 import Persons from './components/Persons'
 import personService from './services/persons'
+import Notification from './components/notification'
 
 const App = () => {
     const [ persons, setPersons] = useState([]) 
     const [ newName, setNewName ] = useState('')
-    const  [newNumber, setNewNumber] = useState('')
+    const [newNumber, setNewNumber] = useState('')
     const [filter, setFilter] = useState('')
+    const [noteMessage, setNoteMessage] = useState(null)
 
     useEffect(() => {
       personService
@@ -36,6 +38,12 @@ const App = () => {
             setNewName('')
             setNewNumber('')
           })
+          setNoteMessage(
+            `${persObject.name} added to phonebook.`
+          )
+          setTimeout(() => {
+            setNoteMessage(null)
+          }, 5000)
         }
     }
 
@@ -44,6 +52,12 @@ const App = () => {
         personService
         .deletePerson(id)
         setPersons(persons.filter(p => p.id !== id))
+        setNoteMessage(
+          `${name} succesfully and permanently deleted.`
+        )
+        setTimeout(() => {
+          setNoteMessage(null)
+        }, 5000)
       }
     }
 
@@ -56,6 +70,12 @@ const App = () => {
           .then(returnedPerson => {
             setPersons(persons.map(p => p.id !== changedPerson.id ? p : returnedPerson))
           })
+          setNoteMessage(
+            `Number of ${newName} updated.`
+          )
+          setTimeout(() => {
+            setNoteMessage(null)
+          }, 5000)
           setNewName('')
           setNewNumber('')
       }
@@ -76,6 +96,7 @@ const App = () => {
     return (
       <div>
         <h2>Phonebook</h2>
+        <Notification message={noteMessage} type='success'/>
         <form>
           <div>
             filter with: <input
