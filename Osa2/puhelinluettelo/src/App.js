@@ -10,6 +10,7 @@ const App = () => {
     const [newNumber, setNewNumber] = useState('')
     const [filter, setFilter] = useState('')
     const [noteMessage, setNoteMessage] = useState(null)
+    const [noteType, setNoteType] = useState('success')
 
     useEffect(() => {
       personService
@@ -28,7 +29,6 @@ const App = () => {
         }
         if(PersonChecker({persons, newName}))
           update()
-            //window.alert(`${newName} already exists, abort mission!`)
         else{
 
         personService
@@ -70,6 +70,15 @@ const App = () => {
           .then(returnedPerson => {
             setPersons(persons.map(p => p.id !== changedPerson.id ? p : returnedPerson))
           })
+          .catch(error => {
+            setNoteType('error')
+            setNoteMessage(`${newName} has already been deleted from the server.`)
+            setTimeout(() => {
+              setNoteMessage(null)
+              setNoteType('success')
+            }, 5000)
+            setPersons(persons.filter(p => p.id !== person.id))
+          })
           setNoteMessage(
             `Number of ${newName} updated.`
           )
@@ -96,7 +105,7 @@ const App = () => {
     return (
       <div>
         <h2>Phonebook</h2>
-        <Notification message={noteMessage} type='success'/>
+        <Notification message={noteMessage} type={noteType}/>
         <form>
           <div>
             filter with: <input
