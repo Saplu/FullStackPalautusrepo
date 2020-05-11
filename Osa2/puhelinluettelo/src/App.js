@@ -38,6 +38,14 @@ const App = () => {
             setNewName('')
             setNewNumber('')
           })
+          .catch(error => {
+            setNoteType('error')
+            setNoteMessage(error.response.data.error)
+            setTimeout(() => {
+              setNoteMessage(null)
+              setNoteType('success')
+            }, 5000)
+          })
           setNoteMessage(
             `${persObject.name} added to phonebook.`
           )
