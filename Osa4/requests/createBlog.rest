@@ -2,8 +2,8 @@ post http://localhost:3001/api/blogs
 Content-Type: application/json
 
 {
-    "title": "Maa aikojen alussa 2",
+    "title": "Maa aikojen alussa 4",
     "author": "Hyvä kirjoittaja myös",
-    "url": "7654321",
+    "url": "76asdf54321",
     "likes": 0
 }
