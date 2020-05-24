@@ -37,9 +37,23 @@ const mostBlogs = (blogs) => {
   return sorted[0]
 }
 
+const mostPopularAuthor = (blogs) => {
+  if (blogs.length === 0)
+    return null
+  const count = _(blogs)
+    .groupBy('author')
+    .map((val, key) => ({
+      'author': key,
+      'likes': _.sumBy(val, 'likes')
+    })).value()
+  const sorted = count.sort((a, b) => (a.likes > b.likes) ? -1 : 1)
+  return sorted[0]
+}
+
 module.exports = {
   dummy,
   totalLikes,
   favoriteBlog,
-  mostBlogs
+  mostBlogs,
+  mostPopularAuthor
 }

@@ -138,4 +138,29 @@ describe('most blogtexts', () => {
     const blogs = []
     expect(listHelper.mostBlogs(blogs)).toBe(null)
   })
+  test('Array of one returns that', () => {
+    expect(listHelper.mostBlogs(listWithOneBlog)).toEqual({
+      author: 'pasi',
+      blogs: 1
+    })
+  })
+})
+
+describe('most popular author', () => {
+  test('Returns correct author', () => {
+    expect(listHelper.mostPopularAuthor(listWithMoreBlogs)).toEqual({
+      author: 'pasi',
+      likes: 9
+    })
+  })
+  test('Empty array returns null', () => {
+    const blogs = []
+    expect(listHelper.mostPopularAuthor(blogs)).toBe(null)
+  })
+  test('Array of one returns that', () => {
+    expect(listHelper.mostPopularAuthor(listWithOneBlog)).toEqual({
+      author: 'pasi',
+      likes: 3
+    })
+  })
 })
