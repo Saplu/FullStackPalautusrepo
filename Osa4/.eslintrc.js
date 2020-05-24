@@ -32,7 +32,7 @@ module.exports = {
     ],
     'no-console': 0
   },
-  'jest': {
-    'testEnvironment': 'node'
-  }
+  // 'jest': {
+  //   'testEnvironment': 'node'
+  // }
 }
