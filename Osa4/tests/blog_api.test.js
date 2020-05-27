@@ -32,7 +32,7 @@ test('a valid blog can be added', async () => {
     title: 'JSfulness',
     author: 'pasi',
     url: 'www.fi',
-    likes: 0
+    likes: 2
   }
 
   await api
@@ -46,6 +46,24 @@ test('a valid blog can be added', async () => {
 
   const titles = blogsAtEnd.map(b => b.title)
   expect(titles).toContain('JSfulness')
+})
+
+test('if no value for likes is given, put 0 likes', async () => {
+  const newBlog = {
+    title: 'No one likes me',
+    author: 'Pinja',
+    url: 'www.sad'
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(200)
+    .expect('Content-Type', /application\/json/)
+
+  const blogsAtEnd = await helper.blogsInDb()
+  const likes = blogsAtEnd.map(b => b.likes)
+  expect(likes[likes.length - 1]).toBe(0)
 })
 
 afterAll(() => {
