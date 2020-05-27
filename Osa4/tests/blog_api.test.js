@@ -66,6 +66,32 @@ test('if no value for likes is given, put 0 likes', async () => {
   expect(likes[likes.length - 1]).toBe(0)
 })
 
+test('no title throws bad request', async () => {
+  const newBlog = {
+    author: 'Pasi',
+    url: 'www.invalidBlog.com',
+    likes: 10
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(400)
+})
+
+test('no url throws bad request', async () => {
+  const newBlog = {
+    title: 'Paper beats internet',
+    author: 'Pasi',
+    likes: 5
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(400)
+})
+
 afterAll(() => {
   mongoose.connection.close()
 })
