@@ -104,7 +104,52 @@ test('delete of blog succeeds with 204 if id is valid', async () => {
   expect(blogsAtEnd).toHaveLength(
     helper.initialBlogs.length - 1
   )
+})
 
+test('update likes of blog successful', async () => {
+  const blogs = await helper.blogsInDb()
+  
+  const updatedBlog = {
+    likes: 12
+  }
+
+  await api
+    .put(`/api/blogs/${blogs[0].id}`)
+    .send(updatedBlog)
+
+  const blogsAtEnd = await helper.blogsInDb()
+  expect(blogsAtEnd[0].likes).toBe(12)
+  expect(blogsAtEnd[0].url).toEqual('www.com')
+})
+
+test('update url of blog successful', async () => {
+  const blogs = await helper.blogsInDb()
+  
+  const updatedBlog = {
+    url: 'www.fi'
+  }
+
+  await api
+    .put(`/api/blogs/${blogs[0].id}`)
+    .send(updatedBlog)
+
+  const blogsAtEnd = await helper.blogsInDb()
+  expect(blogsAtEnd[0].likes).toBe(3)
+  expect(blogsAtEnd[0].url).toEqual('www.fi')
+})
+
+test('update without url or likes ends with status 400', async () => {
+  const blogs = await helper.blogsInDb()
+
+  const updatedBlog = {
+    uri: 'www.asd.com',
+    lieks: 9000
+  }
+
+  await api
+    .put(`/api/blogs/${blogs[0].id}`)
+    .send(updatedBlog)
+    .expect(400)
 })
 
 afterAll(() => {
