@@ -183,6 +183,55 @@ describe('when there is initially one user at db', () => {
     
     expect(usernames).toContain(newUser.username)
   })
+
+  test('creation fails without password with code 400', async () => {
+    const usersAtStart = await helper.usersInDb()
+    
+    const newUser = {
+      username: 'fail',
+      name: 'äiti'
+    }
+    await api
+      .post('/api/users')
+      .send(newUser)
+      .expect(400)
+
+    const usersAtEnd = await helper.usersInDb()
+    expect(usersAtEnd.length).toEqual(usersAtStart.length)
+  })
+
+  test('creation fails without username with code 400', async () => {
+    const usersAtStart = await helper.usersInDb()
+
+    const newUser = {
+      name: 'äiti',
+      password: 'hyväpitkäsalasana'
+    }
+    await api
+      .post('/api/users')
+      .send(newUser)
+      .expect(400)
+
+    const usersAtEnd = await helper.usersInDb()
+    expect(usersAtEnd.length).toEqual(usersAtStart.length)
+  })
+
+  test('creation fails with too short password with code 400', async () => {
+    const usersAtStart = await helper.usersInDb()
+
+    const newUser = {
+      username: 'fail',
+      name: 'äiti',
+      password: 'as'
+    }
+    await api
+      .post('/api/users')
+      .send(newUser)
+      .expect(400)
+
+    const usersAtEnd = await helper.usersInDb()
+    expect(usersAtEnd.length).toEqual(usersAtStart.length)
+  })
 })
 
 afterAll(() => {
