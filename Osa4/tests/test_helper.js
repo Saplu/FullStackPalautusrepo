@@ -6,25 +6,29 @@ const initialBlogs = [
     title: 'asd',
     author: 'vaimo',
     url: 'www.com',
-    likes: 3
+    likes: 3,
+    userId: '5ed8e7e864bed53290c243bd'
   },
   {
     title: 'asdf',
     author: 'pasi',
     url: 'www.com',
-    likes: 2
+    likes: 2,
+    userId: '5ed8e7e864bed53290c243bd'
   },
   {
     title: 'asdfg',
     author: 'pasi',
     url: 'www.com',
-    likes: 7
+    likes: 7,
+    userId: '5ed8e7e864bed53290c243bd'
   },
   {
     title: 'asdfgh',
     author: 'pinja',
     url: 'www.com',
-    likes: 1
+    likes: 1,
+    userId: '5ed8e7e864bed53290c243bd'
   }
 ]
 
