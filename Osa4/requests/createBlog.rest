@@ -1,10 +1,10 @@
 post http://localhost:3001/api/blogs
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhcGx1IiwiaWQiOiI1ZWQ4ZWVjZmI1YWNhYTJmNThhOTNmOTQiLCJpYXQiOjE1OTEyNzU5NjN9.gHA71_N1lCNboPXMKDCBTY9OsTsnOqtUi45d4Irgy4k
 
 {
-    "title": "Seuraava blogi",
-    "author": "Hyvä kirjoittaja myös",
+    "title": "Hieman tokenien tärkeydestä",
+    "author": "saplu",
     "url": "www.54321.fi",
-    "likes": 0,
-    "userId": "5ed8e7e864bed53290c243bd"
+    "likes": 0
 }
