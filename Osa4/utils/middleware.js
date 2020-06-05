@@ -9,7 +9,6 @@ const getTokenFrom = request => {
 const tokenExtractor = (request, response, next) => {
   const token = getTokenFrom(request)
   request.token = token
-  console.log(request.token)
   next()
 }
 

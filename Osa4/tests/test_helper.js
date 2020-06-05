@@ -7,28 +7,28 @@ const initialBlogs = [
     author: 'vaimo',
     url: 'www.com',
     likes: 3,
-    userId: '5ed8e7e864bed53290c243bd'
+    userId: '5ed9fe092321f3252855139f'
   },
   {
     title: 'asdf',
     author: 'pasi',
     url: 'www.com',
     likes: 2,
-    userId: '5ed8e7e864bed53290c243bd'
+    userId: '5ed9fe092321f3252855139f'
   },
   {
     title: 'asdfg',
     author: 'pasi',
     url: 'www.com',
     likes: 7,
-    userId: '5ed8e7e864bed53290c243bd'
+    userId: '5ed9fe092321f3252855139f'
   },
   {
     title: 'asdfgh',
     author: 'pinja',
     url: 'www.com',
     likes: 1,
-    userId: '5ed8e7e864bed53290c243bd'
+    userId: '5ed9fe092321f3252855139f'
   }
 ]
 

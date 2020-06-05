@@ -1,6 +1,6 @@
 post http://localhost:3001/api/blogs
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhcGx1IiwiaWQiOiI1ZWQ4ZWVjZmI1YWNhYTJmNThhOTNmOTQiLCJpYXQiOjE1OTEyNzU5NjN9.gHA71_N1lCNboPXMKDCBTY9OsTsnOqtUi45d4Irgy4k
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhcGx1IiwiaWQiOiI1ZWQ5ZmUwOTIzMjFmMzI1Mjg1NTEzOWYiLCJpYXQiOjE1OTEzNDQ2NzB9.D9g2wqZDRzUY-xl9G3Pgn0DwDc0Cj9GJ5tEvOZQ-Fe0
 
 {
     "title": "Hieman tokenien tärkeydestä",

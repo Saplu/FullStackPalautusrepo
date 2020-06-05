@@ -10,7 +10,22 @@ const User = require('../models/user')
 describe('blogtests', () => {
   beforeEach(async () => {
     await Blog.deleteMany({})
-    await Blog.insertMany(helper.initialBlogs)
+    await api
+      .post('/api/blogs')
+      .set('Authorization', 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhcGx1IiwiaWQiOiI1ZWQ5ZmUwOTIzMjFmMzI1Mjg1NTEzOWYiLCJpYXQiOjE1OTEzNDQ2NzB9.D9g2wqZDRzUY-xl9G3Pgn0DwDc0Cj9GJ5tEvOZQ-Fe0')
+      .send(helper.initialBlogs[0])
+    await api
+      .post('/api/blogs')
+      .set('Authorization', 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhcGx1IiwiaWQiOiI1ZWQ5ZmUwOTIzMjFmMzI1Mjg1NTEzOWYiLCJpYXQiOjE1OTEzNDQ2NzB9.D9g2wqZDRzUY-xl9G3Pgn0DwDc0Cj9GJ5tEvOZQ-Fe0')
+      .send(helper.initialBlogs[1])
+    await api
+      .post('/api/blogs')
+      .set('Authorization', 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhcGx1IiwiaWQiOiI1ZWQ5ZmUwOTIzMjFmMzI1Mjg1NTEzOWYiLCJpYXQiOjE1OTEzNDQ2NzB9.D9g2wqZDRzUY-xl9G3Pgn0DwDc0Cj9GJ5tEvOZQ-Fe0')
+      .send(helper.initialBlogs[2])
+    await api
+      .post('/api/blogs')
+      .set('Authorization', 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhcGx1IiwiaWQiOiI1ZWQ5ZmUwOTIzMjFmMzI1Mjg1NTEzOWYiLCJpYXQiOjE1OTEzNDQ2NzB9.D9g2wqZDRzUY-xl9G3Pgn0DwDc0Cj9GJ5tEvOZQ-Fe0')
+      .send(helper.initialBlogs[3])
   })
 
   test('blogs are returned  as json', async () => {
@@ -36,11 +51,12 @@ describe('blogtests', () => {
       author: 'pasi',
       url: 'www.fi',
       likes: 2,
-      userId: '5ed8e7e864bed53290c243bd'
+      userId: '5ed9fe092321f3252855139f'
     }
 
     await api
       .post('/api/blogs')
+      .set('Authorization', 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhcGx1IiwiaWQiOiI1ZWQ5ZmUwOTIzMjFmMzI1Mjg1NTEzOWYiLCJpYXQiOjE1OTEzNDQ2NzB9.D9g2wqZDRzUY-xl9G3Pgn0DwDc0Cj9GJ5tEvOZQ-Fe0')
       .send(newBlog)
       .expect(200)
       .expect('Content-Type', /application\/json/)
@@ -57,11 +73,12 @@ describe('blogtests', () => {
       title: 'No one likes me',
       author: 'Pinja',
       url: 'www.sad',
-      userId: '5ed8e7e864bed53290c243bd'
+      userId: '5ed9fe092321f3252855139f'
     }
 
     await api
       .post('/api/blogs')
+      .set('Authorization', 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhcGx1IiwiaWQiOiI1ZWQ5ZmUwOTIzMjFmMzI1Mjg1NTEzOWYiLCJpYXQiOjE1OTEzNDQ2NzB9.D9g2wqZDRzUY-xl9G3Pgn0DwDc0Cj9GJ5tEvOZQ-Fe0')
       .send(newBlog)
       .expect(200)
       .expect('Content-Type', /application\/json/)
@@ -69,6 +86,21 @@ describe('blogtests', () => {
     const blogsAtEnd = await helper.blogsInDb()
     const likes = blogsAtEnd.map(b => b.likes)
     expect(likes[likes.length - 1]).toBe(0)
+  })
+
+  test('no token returns status 401', async () => {
+    const newBlog = {
+      title: 'natural failure',
+      author: 'Pinja',
+      url: 'www.invalid.fi',
+      likes: 10,
+      userId: '5ed9fe092321f3252855139f'
+    }
+
+    await api
+      .post('/api/blogs')
+      .send(newBlog)
+      .expect(401)
   })
 
   test('no title throws bad request', async () => {
@@ -99,10 +131,11 @@ describe('blogtests', () => {
 
   test('delete of blog succeeds with 204 if id is valid', async () => {
     const blogsAtStart = await helper.blogsInDb()
-    const blogToDelete = blogsAtStart[0]
+    const blogToDelete = blogsAtStart[blogsAtStart.length - 1]
 
     await api
       .delete(`/api/blogs/${blogToDelete.id}`)
+      .set('Authorization', 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhcGx1IiwiaWQiOiI1ZWQ5ZmUwOTIzMjFmMzI1Mjg1NTEzOWYiLCJpYXQiOjE1OTEzNDQ2NzB9.D9g2wqZDRzUY-xl9G3Pgn0DwDc0Cj9GJ5tEvOZQ-Fe0')
       .expect(204)
   
     const blogsAtEnd = await helper.blogsInDb()
