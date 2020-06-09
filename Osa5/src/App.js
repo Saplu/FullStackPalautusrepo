@@ -71,6 +71,10 @@ const App = () => {
     }, 4000)
   }
 
+  const blogButtonClick = () => {
+    console.log('to be implemented')
+  }
+
   const loginForm = () => (
     <div>
       <h2>Log in</h2>
@@ -108,7 +112,7 @@ const App = () => {
         <BlogForm createBlog={addBlog}/>
       </Togglable>
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
+        <Blog key={blog.id} blog={blog} blogButtonClick={blogButtonClick}/>
       )}
     </div>
   )
