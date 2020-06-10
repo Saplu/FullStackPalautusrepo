@@ -74,6 +74,11 @@ const App = () => {
     setBlogs(await blogService.getAll())
   }
 
+  const deleteButtonClick = async (blogId) => {
+    await blogService.remove(blogId)
+    setBlogs(await blogService.getAll())
+  }
+
   const loginForm = () => (
     <div>
       <h2>Log in</h2>
@@ -111,7 +116,12 @@ const App = () => {
         <BlogForm createBlog={addBlog}/>
       </Togglable>
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} likeButtonClick={blogButtonClick}/>
+        <Blog key={blog.id} 
+          blog={blog} 
+          likeButtonClick={blogButtonClick} 
+          deleteButtonClick={deleteButtonClick}
+          user={user.username}
+        />
       )}
     </div>
   )

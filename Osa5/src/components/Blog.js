@@ -1,8 +1,9 @@
 import React, {useState} from 'react'
 
-const Blog = ({ blog, likeButtonClick }) => {
+const Blog = ({ blog, likeButtonClick, deleteButtonClick, user }) => {
   const [showDetails, setShowDetails] = useState(false)
-
+  console.log(user)
+  console.log(blog.user.username)
   const handleButtonClick = (event) => {
     event.preventDefault()
     setShowDetails(!showDetails)
@@ -13,11 +14,23 @@ const Blog = ({ blog, likeButtonClick }) => {
     likeButtonClick(blog.id)
   }
 
+  const handleDeleteButtonClick = (event) => {
+    event.preventDefault()
+    if (window.confirm(`Sure you want to remove blog ${blog.title}?`)){
+      deleteButtonClick(blog.id)
+    }
+  }
+
+  const deleteVisible = () => (
+    <button onClick={handleDeleteButtonClick}>delete</button>
+  )
+
   const noDetails = () => (
     <div className='blog'>
       {blog.title} <button onClick={handleButtonClick}>Show details</button>
     </div>
   )
+
   const moreDetails = () => (
     <div className='blog'>
       <div>
@@ -34,6 +47,11 @@ const Blog = ({ blog, likeButtonClick }) => {
       </div>
       <div>
         name: {blog.user.name}
+      </div>
+      <div>
+        {user === blog.user.username ? 
+          deleteVisible() :
+          null}
       </div>
     </div>
   )
