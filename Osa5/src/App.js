@@ -11,9 +11,6 @@ const App = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
-  //const [title, setTitle] = useState('')
-  //const [author, setAuthor] = useState('')
-  //const [url, setUrl] = useState('')
   const [message, setMessage] = useState(null)
   const blogFormRef = React.createRef()
 
@@ -71,8 +68,9 @@ const App = () => {
     }, 4000)
   }
 
-  const blogButtonClick = () => {
-    console.log('to be implemented')
+  const blogButtonClick = async (blogId) => {
+    await blogService.like(blogId)
+    setBlogs(await blogService.getAll())
   }
 
   const loginForm = () => (
@@ -112,7 +110,7 @@ const App = () => {
         <BlogForm createBlog={addBlog}/>
       </Togglable>
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} blogButtonClick={blogButtonClick}/>
+        <Blog key={blog.id} blog={blog} likeButtonClick={blogButtonClick}/>
       )}
     </div>
   )

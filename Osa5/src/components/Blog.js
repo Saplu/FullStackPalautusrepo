@@ -1,11 +1,16 @@
 import React, {useState} from 'react'
 
-const Blog = ({ blog, blogButtonClick }) => {
+const Blog = ({ blog, likeButtonClick }) => {
   const [showDetails, setShowDetails] = useState(false)
 
   const handleButtonClick = (event) => {
     event.preventDefault()
     setShowDetails(!showDetails)
+  }
+
+  const handleLikeButtonClick = (event) => {
+    event.preventDefault()
+    likeButtonClick(blog.id)
   }
 
   const noDetails = () => (
@@ -25,7 +30,7 @@ const Blog = ({ blog, blogButtonClick }) => {
         url: {blog.url}
       </div>
       <div>
-        likes: {blog.likes} <button>like</button>
+        likes: {blog.likes} <button onClick={handleLikeButtonClick}>like</button>
       </div>
       <div>
         name: {blog.user.name}
