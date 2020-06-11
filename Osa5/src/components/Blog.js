@@ -1,9 +1,8 @@
 import React, {useState} from 'react'
+import PropTypes from 'prop-types'
 
 const Blog = ({ blog, likeButtonClick, deleteButtonClick, user }) => {
   const [showDetails, setShowDetails] = useState(false)
-  console.log(user)
-  console.log(blog.user.username)
   const handleButtonClick = (event) => {
     event.preventDefault()
     setShowDetails(!showDetails)
@@ -64,6 +63,13 @@ const Blog = ({ blog, likeButtonClick, deleteButtonClick, user }) => {
       }
     </div>
   )
-} 
+}
+
+Blog.propTypes = {
+  likeButtonClick: PropTypes.func.isRequired,
+  deleteButtonClick: PropTypes.func.isRequired,
+  blog: PropTypes.object.isRequired,
+  user: PropTypes.string.isRequired
+}
 
 export default Blog
