@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
 const Blog = ({ blog, likeButtonClick, deleteButtonClick, user }) => {
@@ -48,7 +48,7 @@ const Blog = ({ blog, likeButtonClick, deleteButtonClick, user }) => {
         name: {blog.user.name}
       </div>
       <div>
-        {user === blog.user.username ? 
+        {user === blog.user.username ?
           deleteVisible() :
           null}
       </div>

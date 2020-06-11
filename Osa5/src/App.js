@@ -16,9 +16,9 @@ const App = () => {
 
   useEffect(() => {
     blogService.getAll()
-    .then(blogs =>
-      setBlogs( blogs )
-    )
+      .then(blogs =>
+        setBlogs( blogs )
+      )
   }, [])
 
   useEffect(() => {
@@ -86,7 +86,7 @@ const App = () => {
       <form onSubmit={handleLogin}>
         <div>
           username
-            <input
+          <input
             type="text"
             value={username}
             name="Username"
@@ -95,7 +95,7 @@ const App = () => {
         </div>
         <div>
           password
-            <input
+          <input
             type="password"
             value={password}
             name="Password"
@@ -116,9 +116,9 @@ const App = () => {
         <BlogForm createBlog={addBlog}/>
       </Togglable>
       {blogs.map(blog =>
-        <Blog key={blog.id} 
-          blog={blog} 
-          likeButtonClick={blogButtonClick} 
+        <Blog key={blog.id}
+          blog={blog}
+          likeButtonClick={blogButtonClick}
           deleteButtonClick={deleteButtonClick}
           user={user.username}
         />
@@ -128,12 +128,12 @@ const App = () => {
 
   return (
     <div>
-      {user === null ? 
+      {user === null ?
         loginForm() :
         blogForm()
       }
 
-    </div>    
+    </div>
   )
 }
 
