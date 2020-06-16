@@ -16,14 +16,18 @@ test('Shows only title and author by default', () => {
     title: 'Testi',
     author: 'Saplu',
     url: 'www.com',
-    likes: 5
+    likes: 5,
+    user: {
+      name: 'minä',
+      user: {
+        username: 'Saplu'
+      }
+    }
   }
 
   const component = render(
     <Blog blog={blog} user='Saplu' likeButtonClick={defaultLike} deleteButtonClick={defaultDelete}/>
   )
-
-  component.debug()
 
   expect(component.container).toHaveTextContent('Testi')
   expect(component.container).toHaveTextContent('Saplu')
@@ -49,15 +53,40 @@ test('Shows all info when more info - button is pressed', () => {
     <Blog blog={blog} user='Saplu' likeButtonClick={defaultLike} deleteButtonClick={defaultDelete}/>
   )
 
-  component.debug()
-
   const button = component.getByText('Show details')
   fireEvent.click(button)
-
-  component.debug()
 
   expect(component.container).toHaveTextContent('Testi')
   expect(component.container).toHaveTextContent('Saplu')
   expect(component.container).toHaveTextContent('www.com')
   expect(component.container).toHaveTextContent(5)
+})
+
+test('Like button works as intended', () => {
+  const blog = {
+    title: 'Testi',
+    author: 'Saplu',
+    url: 'www.com',
+    likes: 5,
+    user: {
+      name: 'minä',
+      user: {
+        username: 'Saplu'
+      }
+    }
+  }
+
+  const mockHandler = jest.fn()
+
+  const component = render(
+    <Blog blog={blog} user='Saplu' likeButtonClick={mockHandler} deleteButtonClick={defaultDelete}/>
+  )
+
+  const detailButton = component.getByText('Show details')
+  fireEvent.click(detailButton)
+  const likeButton = component.getByText('like')
+  fireEvent.click(likeButton)
+  fireEvent.click(likeButton)
+
+  expect(mockHandler.mock.calls).toHaveLength(2)
 })
