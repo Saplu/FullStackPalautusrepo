@@ -21,7 +21,7 @@ const Blog = ({ blog, likeButtonClick, deleteButtonClick, user }) => {
   }
 
   const deleteVisible = () => (
-    <button onClick={handleDeleteButtonClick}>delete</button>
+    <button id="delete" onClick={handleDeleteButtonClick}>delete</button>
   )
 
   const noDetails = () => (

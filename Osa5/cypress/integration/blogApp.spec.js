@@ -55,7 +55,7 @@ describe('Blog app', function() {
       cy.contains('Puoliso')
     })
 
-    describe('and there are multiple blogs', function() {
+    describe('and there is a blog', function() {
       beforeEach(function() {
         cy.get('#newBlogButton').click()
         cy.get('#title').type('titteli')
@@ -63,11 +63,11 @@ describe('Blog app', function() {
         cy.get('#url').type('www.fi')
         cy.get('#submit').click()
 
-        cy.get('#newBlogButton').click()
-        cy.get('#title').type('neito kaunokainen')
-        cy.get('#author').type('kaunis neito')
-        cy.get('#url').type('www.com')
-        cy.get('#submit').click()
+        // cy.get('#newBlogButton').click()
+        // cy.get('#title').type('neito kaunokainen')
+        // cy.get('#author').type('kaunis neito')
+        // cy.get('#url').type('www.com')
+        // cy.get('#submit').click()
       })
 
       it('A blog can be liked', function() {
@@ -75,6 +75,14 @@ describe('Blog app', function() {
         cy.get('#like').click()
 
         cy.contains('likes: 1')
+      })
+
+      it('A blog can be deleted', function() {
+        cy.get('#show').click()
+        cy.get('#delete').click()
+        cy.get('html').should('not.contain', 'titteli')
+          .and('not.contain', 'kumppani')
+
       })
     })
   })
