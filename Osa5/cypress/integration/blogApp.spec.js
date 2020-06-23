@@ -54,5 +54,28 @@ describe('Blog app', function() {
       cy.contains('Cypress')
       cy.contains('Puoliso')
     })
+
+    describe('and there are multiple blogs', function() {
+      beforeEach(function() {
+        cy.get('#newBlogButton').click()
+        cy.get('#title').type('titteli')
+        cy.get('#author').type('kumppani')
+        cy.get('#url').type('www.fi')
+        cy.get('#submit').click()
+
+        cy.get('#newBlogButton').click()
+        cy.get('#title').type('neito kaunokainen')
+        cy.get('#author').type('kaunis neito')
+        cy.get('#url').type('www.com')
+        cy.get('#submit').click()
+      })
+
+      it('A blog can be liked', function() {
+        cy.get('#show').click()
+        cy.get('#like').click()
+
+        cy.contains('likes: 1')
+      })
+    })
   })
 })
