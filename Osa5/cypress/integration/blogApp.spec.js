@@ -36,4 +36,23 @@ describe('Blog app', function() {
         .and('have.css', 'color', 'rgb(255, 0, 0)')
     })
   })
+
+  describe('when logged in', function() {
+    beforeEach(function() {
+      cy.get('#username').type('Saplu')
+      cy.get('#password').type('salasana')
+      cy.get('#login-button').click()
+    })
+
+    it('A blog can be created', function(){
+      cy.get('#newBlogButton').click()
+      cy.get('#title').type('Cypress')
+      cy.get('#author').type('Puoliso')
+      cy.get('#url').type('www.asd.com')
+      cy.get('#submit').click()
+
+      cy.contains('Cypress')
+      cy.contains('Puoliso')
+    })
+  })
 })
