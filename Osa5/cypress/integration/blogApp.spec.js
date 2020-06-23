@@ -82,7 +82,27 @@ describe('Blog app', function() {
         cy.get('#delete').click()
         cy.get('html').should('not.contain', 'titteli')
           .and('not.contain', 'kumppani')
+      })
 
+      it.only('Blogs are sorted correctly', function() {
+        cy.get('#newBlogButton').click()
+        cy.get('#title').type('neito kaunokainen')
+        cy.get('#author').type('kaunis neito')
+        cy.get('#url').type('www.com')
+        cy.get('#submit').click()
+        cy.wait(2000)
+
+        cy.contains('titteli')
+          .contains('Show')
+          .click()
+        cy.contains('likes')
+          .contains('like')
+          .click()
+
+        cy.wait(2000)
+
+        cy.get('.blog').first().should('contain', 'titteli')
+        cy.get('.blog').last().should('contain', 'neito')
       })
     })
   })

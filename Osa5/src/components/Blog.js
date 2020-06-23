@@ -33,7 +33,7 @@ const Blog = ({ blog, likeButtonClick, deleteButtonClick, user }) => {
   const moreDetails = () => (
     <div className='blog'>
       <div>
-        {blog.title} <button onClick={handleButtonClick}>Hide Details</button>
+        {blog.title} <button id="hide" onClick={handleButtonClick}>Hide Details</button>
       </div>
       <div>
         author: {blog.author}
