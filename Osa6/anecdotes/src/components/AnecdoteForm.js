@@ -28,6 +28,12 @@ const NewAnecdote = (props) => {
   )
 }
 
+// const mapStateToProps = (state) => {
+//   return {
+//     notificationId: state.notificationId
+//   }
+// }
+
 const mapDispatchToProps = {
   createAnecdote,
   setNotification

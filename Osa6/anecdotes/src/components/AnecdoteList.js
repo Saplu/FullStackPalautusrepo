@@ -37,7 +37,7 @@ const Anecdotes = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    anecdotes: state.anecdotes
+    anecdotes: state.anecdotes,
   }
 }
 
