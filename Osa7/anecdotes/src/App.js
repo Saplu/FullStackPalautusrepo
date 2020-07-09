@@ -64,6 +64,10 @@ const CreateNew = (props) => {
   const author = useField('text')
   const info = useField('text')
 
+  const clonedContent = {...content, reset: null}
+  const clonedAuthor = {...author, reset: null}
+  const clonedInfo = {...info, reset: null}
+
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -76,23 +80,30 @@ const CreateNew = (props) => {
     history.push('/anecdotes')
   }
 
+  const handleReset = (e) => {
+    e.preventDefault()
+    content.reset()
+    author.reset()
+    info.reset()
+  }
+
   return (
     <div>
       <h2>create a new anecdote</h2>
       <form onSubmit={handleSubmit}>
         <div>
           content
-          <input {...content}/>
+          <input {...clonedContent}/>
         </div>
         <div>
           author
-          <input {...author}/>
+          <input {...clonedAuthor}/>
         </div>
         <div>
           url for more info
-          <input {...info}/>
+          <input {...clonedInfo}/>
         </div>
-        <button>create</button>
+        <button>create</button><button onClick={handleReset}>reset</button>
       </form>
     </div>
   )
