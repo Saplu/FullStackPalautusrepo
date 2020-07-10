@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react'
 import Blog from './components/Blog'
 import blogService from './services/blogs'
 import loginService from './services/login'
+import userService from './services/users'
 import Notification from './components/notification'
 import Togglable from './components/Togglable'
 import BlogForm from './components/BlogForm'
 import { setNotification, removeNotification } from './reducers/notificationReducer'
 import { useDispatch } from 'react-redux'
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+import User from './components/User'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -14,8 +17,12 @@ const App = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
-  //const [message, setMessage] = useState(null)
+  const [users, setUsers] = useState([])
   const blogFormRef = React.createRef()
+
+  const padding = {
+    padding: 10
+  }
 
   useEffect(() => {
     blogService.getAll()
@@ -31,6 +38,12 @@ const App = () => {
       setUser(user)
       blogService.setToken(user.token)
     }
+  }, [])
+
+  useEffect(() => {
+    userService.getAll()
+      .then(users =>
+        setUsers(users))
   }, [])
 
   const handleLogin = async (event) => {
@@ -113,22 +126,38 @@ const App = () => {
   )
 
   const blogForm = () => (
-    <div>
-      <h2>Blogs</h2>
-      <p>{user.name} logged in <button onClick={logOut}>logout</button></p>
-      <Notification success='success'/>
-      <Togglable buttonLabel="new blog" ref={blogFormRef}>
-        <BlogForm createBlog={addBlog}/>
-      </Togglable>
-      {blogs.map(blog =>
-        <Blog key={blog.id}
-          blog={blog}
-          likeButtonClick={blogButtonClick}
-          deleteButtonClick={deleteButtonClick}
-          user={user.username}
-        />
-      )}
-    </div>
+    <Router>
+      <div>
+        <h2>Blogs</h2>
+        <p>{user.name} logged in <button onClick={logOut}>logout</button></p>
+        <Link style={padding} to="/users">users</Link>
+        <Link style={padding} to="/">home</Link>
+        <Switch>
+          <Route path="/users">
+            <h2>Users</h2>
+            {users.map(user => 
+              <User key={user.id}
+                user={user}
+              />
+            )}
+          </Route>
+          <Route path="/">
+            <Notification success='success'/>
+            <Togglable buttonLabel="new blog" ref={blogFormRef}>
+              <BlogForm createBlog={addBlog}/>
+            </Togglable>
+            {blogs.map(blog =>
+              <Blog key={blog.id}
+                blog={blog}
+                likeButtonClick={blogButtonClick}
+                deleteButtonClick={deleteButtonClick}
+                user={user.username}
+              />
+            )}
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   )
 
   return (
