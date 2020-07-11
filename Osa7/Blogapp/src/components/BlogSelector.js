@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import Blog from '../components/Blog'
 
 const BlogSelector = ({blogs, likeButtonClick, deleteButtonClick, user}) => {
@@ -7,7 +7,8 @@ const BlogSelector = ({blogs, likeButtonClick, deleteButtonClick, user}) => {
   if(blogs.length === 0)
     return null
   const blog = blogs.find(b => b.id === id)
-  console.log(blog)
+  if(blog === undefined)
+    return null
 
   return(
     <Blog blog={blog} likeButtonClick={likeButtonClick} deleteButtonClick={deleteButtonClick} user={user} details={true} />

@@ -22,7 +22,7 @@ const App = () => {
   const blogFormRef = React.createRef()
 
   const padding = {
-    padding: 10
+    padding: 5
   }
 
   useEffect(() => {
@@ -129,10 +129,7 @@ const App = () => {
   const blogForm = () => (
     <Router>
       <div>
-        <h2>Blogs</h2>
-        <p>{user.name} logged in <button onClick={logOut}>logout</button></p>
-        <Link style={padding} to="/users">users</Link>
-        <Link style={padding} to="/">home</Link>
+        <p><Link style={padding} to="/users">users</Link><Link style={padding} to="/">home</Link>{user.name} logged in <button onClick={logOut}>logout</button></p>
         <Switch>
           <Route path="/users/:id">
             <Users users={users} details={true} />
@@ -144,6 +141,7 @@ const App = () => {
             <BlogSelector blogs={blogs} likeButtonClick={blogButtonClick} deleteButtonClick={deleteButtonClick} user={user.username} />
           </Route>
           <Route path="/">
+            <h2>Blogs</h2>
             <Notification success='success'/>
             <Togglable buttonLabel="new blog" ref={blogFormRef}>
               <BlogForm createBlog={addBlog}/>
