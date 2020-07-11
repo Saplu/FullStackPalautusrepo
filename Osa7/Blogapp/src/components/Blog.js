@@ -5,6 +5,11 @@ import { Link } from 'react-router-dom'
 const Blog = ({ blog, likeButtonClick, deleteButtonClick, user, details=false }) => {
   const [showDetails, setShowDetails] = useState(details)
 
+  const blogStyle = {
+    width: '40%',
+    color: 'black'
+  }
+
   const handleButtonClick = (event) => {
     event.preventDefault()
     setShowDetails(!showDetails)
@@ -28,12 +33,12 @@ const Blog = ({ blog, likeButtonClick, deleteButtonClick, user, details=false })
 
   const noDetails = () => (
     <div className='blog'>
-      <Link to={`/blogs/${blog.id}`}>{blog.title} {blog.author} <button id="show" onClick={handleButtonClick}>Show details</button></Link>
+      <Link style={blogStyle} to={`/blogs/${blog.id}`}>{blog.title} {blog.author} <button id="show" onClick={handleButtonClick}>Show details</button></Link>
     </div>
   )
 
   const moreDetails = () => (
-    <div className='blog'>
+    <div className='blog' style={blogStyle}>
       <div>
         {blog.title} <button id="hide" onClick={handleButtonClick}>Hide Details</button>
       </div>

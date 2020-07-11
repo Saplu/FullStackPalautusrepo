@@ -11,6 +11,7 @@ import { useDispatch } from 'react-redux'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import Users from './components/User'
 import BlogSelector from './components/BlogSelector'
+import { Form, Button } from 'react-bootstrap'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -22,7 +23,13 @@ const App = () => {
   const blogFormRef = React.createRef()
 
   const padding = {
-    padding: 5
+    padding: 5,
+  }
+
+  const loginSpacing = {
+    width: '50%',
+    height: 30,
+    margin: 15
   }
 
   useEffect(() => {
@@ -100,29 +107,29 @@ const App = () => {
     <div>
       <h2>Log in</h2>
       <Notification success="error" />
-      <form onSubmit={handleLogin}>
-        <div>
-          username
-          <input
+      <Form onSubmit={handleLogin}>
+        <Form.Group>
+          <Form.Control
             id="username"
+            placeholder="username"
+            style={loginSpacing}
             type="text"
             value={username}
             name="Username"
             onChange={({ target }) => setUsername(target.value)}
           />
-        </div>
-        <div>
-          password
-          <input
+          <Form.Control
             id="password"
+            placeholder="password"
+            style={loginSpacing}
             type="password"
             value={password}
             name="Password"
             onChange={({ target }) => setPassword(target.value)}
           />
-        </div>
-        <button id="login-button" type="submit">login</button>
-      </form>
+          <Button id="login-button" type="submit">login</Button>
+        </Form.Group>
+      </Form>
     </div>
   )
 
@@ -146,14 +153,14 @@ const App = () => {
             <Togglable buttonLabel="new blog" ref={blogFormRef}>
               <BlogForm createBlog={addBlog}/>
             </Togglable>
-            {blogs.map(blog =>
-              <Blog key={blog.id}
-                blog={blog}
-                likeButtonClick={blogButtonClick}
-                deleteButtonClick={deleteButtonClick}
-                user={user.username}
-              />
-            )}
+                {blogs.map(blog =>
+                  <Blog key={blog.id}
+                    blog={blog}
+                    likeButtonClick={blogButtonClick}
+                    deleteButtonClick={deleteButtonClick}
+                    user={user.username}
+                  />
+                )}
           </Route>
         </Switch>
       </div>
@@ -161,7 +168,7 @@ const App = () => {
   )
 
   return (
-    <div>
+    <div className="container">
       {user === null ?
         loginForm() :
         blogForm()
@@ -172,12 +179,3 @@ const App = () => {
 }
 
 export default App
-
-// {blogs.map(blog =>
-//   <Blog key={blog.id}
-//     blog={blog}
-//     likeButtonClick={blogButtonClick}
-//     deleteButtonClick={deleteButtonClick}
-//     user={user.username}
-//   />
-// )}
