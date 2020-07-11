@@ -133,13 +133,11 @@ const App = () => {
         <Link style={padding} to="/users">users</Link>
         <Link style={padding} to="/">home</Link>
         <Switch>
+          <Route path="/users/:id">
+            <User users={users} details={true} />
+          </Route>
           <Route path="/users">
-            <h2>Users</h2>
-            {users.map(user => 
-              <User key={user.id}
-                user={user}
-              />
-            )}
+            <User users={users} details={false}/>
           </Route>
           <Route path="/">
             <Notification success='success'/>
