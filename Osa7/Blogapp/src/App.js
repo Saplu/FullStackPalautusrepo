@@ -9,7 +9,8 @@ import BlogForm from './components/BlogForm'
 import { setNotification, removeNotification } from './reducers/notificationReducer'
 import { useDispatch } from 'react-redux'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
-import User from './components/User'
+import Users from './components/User'
+import BlogSelector from './components/BlogSelector'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -134,10 +135,13 @@ const App = () => {
         <Link style={padding} to="/">home</Link>
         <Switch>
           <Route path="/users/:id">
-            <User users={users} details={true} />
+            <Users users={users} details={true} />
           </Route>
           <Route path="/users">
-            <User users={users} details={false}/>
+            <Users users={users} details={false}/>
+          </Route>
+          <Route path="/blogs/:id">
+            <BlogSelector blogs={blogs} likeButtonClick={blogButtonClick} deleteButtonClick={deleteButtonClick} user={user.username} />
           </Route>
           <Route path="/">
             <Notification success='success'/>
@@ -170,3 +174,12 @@ const App = () => {
 }
 
 export default App
+
+// {blogs.map(blog =>
+//   <Blog key={blog.id}
+//     blog={blog}
+//     likeButtonClick={blogButtonClick}
+//     deleteButtonClick={deleteButtonClick}
+//     user={user.username}
+//   />
+// )}

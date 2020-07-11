@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
-const Blog = ({ blog, likeButtonClick, deleteButtonClick, user }) => {
-  const [showDetails, setShowDetails] = useState(false)
+const Blog = ({ blog, likeButtonClick, deleteButtonClick, user, details=false }) => {
+  const [showDetails, setShowDetails] = useState(details)
+
   const handleButtonClick = (event) => {
     event.preventDefault()
     setShowDetails(!showDetails)
@@ -26,7 +28,7 @@ const Blog = ({ blog, likeButtonClick, deleteButtonClick, user }) => {
 
   const noDetails = () => (
     <div className='blog'>
-      {blog.title} {blog.author} <button id="show" onClick={handleButtonClick}>Show details</button>
+      <Link to={`/blogs/${blog.id}`}>{blog.title} {blog.author} <button id="show" onClick={handleButtonClick}>Show details</button></Link>
     </div>
   )
 

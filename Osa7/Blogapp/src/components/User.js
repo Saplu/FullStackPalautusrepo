@@ -1,12 +1,10 @@
-import React, { useState } from 'react'
-import { BrowserRouter as Router, Switch, Route, Link, useParams } from 'react-router-dom'
+import React from 'react'
+import { Link, useParams } from 'react-router-dom'
 
-const User = ({users, details}) => {
-  console.log(users)
+const Users = ({users, details}) => {
   const id = useParams().id
   if(users.length === 0)
     return null
-
 
   const lowDetails = () => (
     <div>
@@ -39,4 +37,4 @@ const User = ({users, details}) => {
   )
 }
 
-export default User
+export default Users
