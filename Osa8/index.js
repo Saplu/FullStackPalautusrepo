@@ -110,6 +110,10 @@ const resolvers = {
       if (!args.author && !args.genre) {
         return books
       }
+      if (args.author && args.genre){
+        const authorsFiltered = books.filter(b => b.author === args.author)
+        return authorsFiltered.filter(b => b.genres.includes(args.genre))
+      }
       if (args.author){
         return books.filter(b => b.author === args.author)
       }
