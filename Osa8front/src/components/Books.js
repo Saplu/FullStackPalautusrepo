@@ -12,7 +12,9 @@ const Books = (props) => {
     }
   `
 
-  const result = useQuery(getBooks)
+  const result = useQuery(getBooks, {
+    pollInterval: 2000
+  })
 
   if (!props.show || result.loading) {
     return null
