@@ -14,14 +14,9 @@ const Authors = (props) => {
 
   const changeYear = async (event) => {
     event.preventDefault()
-    const names = result.data.allAuthors.map(a => a.name)
-    if (!names.includes(name))
-      console.log('not found')
-    else {
-      mutateYear({ variables: { year, name } })
-      setName('')
-      setYear('')
-    }
+    mutateYear({ variables: { year, name } })
+    setName('')
+    setYear('')
   }
 
   if (!props.show || result.loading) {
@@ -54,15 +49,13 @@ const Authors = (props) => {
       <h2>Set birthyear</h2>
       <div>
         <form onSubmit={changeYear}>
+          <select value={name} onChange={({target}) => setName(target.value)}>
+            {result.data.allAuthors.map(a => 
+              <option value={a.name} key={a.name}>{a.name}</option>
+            )}
+          </select>
           <div>
-            name:
-            <input
-              value={name}
-              onChange={({target}) => setName(target.value)}
-            />
-          </div>
-          <div>
-            birht:
+            birth:
             <input
               type='number'
               value={year}
