@@ -33,9 +33,6 @@ const Authors = (props) => {
             <th>
               born
             </th>
-            <th>
-              books
-            </th>
           </tr>
           {result.data.allAuthors.map(a =>
             <tr key={a.name}>
