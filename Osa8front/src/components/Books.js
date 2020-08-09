@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/client'
 import { getBooks } from '../queries'
 
 const Books = (props) => {
-  const [genres, setGenres] = useState(null)
+  const [genres, setGenres] = useState(props.genre ? props.genre : null)
 
   const result = useQuery(getBooks, {
     pollInterval: 2000
@@ -14,6 +14,9 @@ const Books = (props) => {
   }
 
   const GenreButtons = () => {
+    if (props.show === 'recommend'){
+      return null
+    }
     const allGenres = result.data.allBooks.map(b => b.genres)
     const merged = [].concat.apply([], allGenres)
     const unique = [...new Set(merged)]
@@ -58,7 +61,7 @@ const Books = (props) => {
 
   return (
     <div>
-      <h2>books</h2>
+      <h2>{(props.show === 'recommend' ? 'Recommended' : 'Books')}</h2>
       <p>{genres === null ? `selected genre: all` : `selected genre: ${genres}`}</p>
       <GenreButtons/>
       <BooksToShow/>
@@ -67,11 +70,3 @@ const Books = (props) => {
 }
 
 export default Books
-
-// {result.data.allBooks.map(a =>
-//   <tr key={a.title}>
-//     <td>{a.title}</td>
-//     <td>{a.author.name}</td>
-//     <td>{a.published}</td>
-//   </tr>
-// )}
