@@ -102,7 +102,8 @@ const resolvers = {
       }
     },
     allAuthors: async () => {
-      const authors = await Author.find({})
+      const authors = await Author.find({}).populate('bookCount')
+      console.log(authors)
       return authors
     },
     me: (root, args, context) => {
