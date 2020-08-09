@@ -130,14 +130,15 @@ const resolvers = {
       const newAuthor = new Author({name: args.name})
       try{
         await newAuthor.save()
+
         const newBook = new Book({ title: args.title, author: newAuthor, published: args.published, genres: args.genres})
         await newBook.save()
+        return newBook
       } catch(error) {
         throw new UserInputError(error.message, {
           invalidArgs: args,
         })
       }
-      return newBook
     },
     editAuthor: async (root, args, context) => {
       const author = await Author.findOne({ name: args.name })

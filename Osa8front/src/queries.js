@@ -15,7 +15,8 @@ export const getBooks = gql `
       published
       author {
         name
-      }      
+      }
+      genres     
     }
   }
   `
