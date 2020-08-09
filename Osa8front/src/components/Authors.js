@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useQuery, useMutation } from '@apollo/client'
 import { getAuthors, modifyAuthor } from '../queries'
 
@@ -21,6 +21,31 @@ const Authors = (props) => {
 
   if (!props.show || result.loading) {
     return null
+  }
+
+  if (!props.token) {
+    return (
+      <div>
+        <h2>authors</h2>
+        <table>
+          <tbody>
+            <tr>
+              <th></th>
+              <th>
+                born
+              </th>
+            </tr>
+            {result.data.allAuthors.map(a =>
+              <tr key={a.name}>
+                <td>{a.name}</td>
+                <td>{a.born}</td>
+                <td>{a.bookCount}</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+    )
   }
 
   return (
@@ -47,6 +72,7 @@ const Authors = (props) => {
       <div>
         <form onSubmit={changeYear}>
           <select value={name} onChange={({target}) => setName(target.value)}>
+            {<option value={null} key={null}>Select one</option>}
             {result.data.allAuthors.map(a => 
               <option value={a.name} key={a.name}>{a.name}</option>
             )}

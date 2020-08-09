@@ -82,7 +82,6 @@ const resolvers = {
     allBooks: async (root, args) => {
       if (!args.author && !args.genre) {
         const books = await Book.find({}).populate('author', { name: 1})
-        console.log(books)
         return books
       }
       if (args.author && args.genre){
@@ -108,9 +107,10 @@ const resolvers = {
   },
   Mutation: {
     addBook: async (root, args, context) => {
+      console.log(args)
       const author = await Author.findOne({ name: args.name})
       const currentUser = context.currentUser
-
+      
       if(!currentUser) {
         throw new Error("Not authenticated")
       }
@@ -143,6 +143,7 @@ const resolvers = {
       const author = await Author.findOne({ name: args.name })
       const currentUser = context.currentUser
 
+      console.log(currentUser)
       if (!currentUser){
         throw new Error("Not authenticated")
       }
