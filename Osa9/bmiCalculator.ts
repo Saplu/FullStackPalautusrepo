@@ -36,3 +36,6 @@ try {
 } catch (e) {
   console.log(e.message)
 }
+
+
+export {calculator};
