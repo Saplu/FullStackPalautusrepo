@@ -13,6 +13,27 @@ interface Rating {
   explanation: string;
 }
 
+interface ExerciseInput {
+  period: Array<number>,
+  target: number
+}
+
+const parseArguments = (args: Array<string>) : ExerciseInput => {
+  if (args.length < 4) throw new Error('Not enough arguments.')
+  console.log(args)
+  let wantedArgs = new Array<number>();
+  var i;
+  for (i = 2; i < args.length; i++){
+    if (isNaN(Number(args[i]))) throw new Error('Values are not numbers.');
+    wantedArgs = wantedArgs.concat(Number(args[i]))
+  }
+
+  return {
+    period: wantedArgs.slice(1, wantedArgs.length),
+    target: wantedArgs[0]
+  }
+}
+
 const calculateRating = (average: number, goal: number) : Rating => {
   if (average >= goal) return {
     grade: 3,
@@ -28,7 +49,7 @@ const calculateRating = (average: number, goal: number) : Rating => {
   }
 }
 
-const CalculteSuccess = (report: Array<number>, goal: number) : TrainResult => {
+const calculateSuccess = (report: Array<number>, goal: number) : TrainResult => {
   const average = report.reduce(function(a, b) {
     return a + b;
   }, 0) / report.length;
@@ -48,4 +69,11 @@ const CalculteSuccess = (report: Array<number>, goal: number) : TrainResult => {
   }
 }
 
-console.log(CalculteSuccess([1, 2, 1, 0, 0, 0, 1.5], 2));
+try {
+  const { period, target } = parseArguments(process.argv);
+  console.log(calculateSuccess(period, target));
+} catch (e) {
+  console.log(`Something went wrong: ${e.message}`)
+}
+
+//console.log(calculteSuccess([1, 2, 1, 0, 0, 0, 1.5], 2));
