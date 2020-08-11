@@ -13,7 +13,7 @@ const parseBmiInput = (args: Array<string>) : BmiInput => {
       weight: Number(args[3])
     }
   } else {
-    throw new Error ('Values are not numbers.')
+    throw new Error ('Values are not numbers.');
   }
 }
 
@@ -31,10 +31,10 @@ const calculator = (a: number, b: number) : string => {
 }
 
 try {
-  const input = parseBmiInput(process.argv)
-  console.log(calculator(input.height, input.weight))
+  const input = parseBmiInput(process.argv);
+  console.log(calculator(input.height, input.weight));
 } catch (e) {
-  console.log(e.message)
+  console.log(e.message);
 }
 
 
