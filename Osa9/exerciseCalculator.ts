@@ -57,7 +57,7 @@ const calculateRating = (average: number, goal: number) : Rating => {
   };
 };
 
-const calculateSuccess = (report: Array<number>, goal: number) : TrainResult => {
+export const calculateSuccess = (report: Array<number>, goal: number) : TrainResult => {
   const average = report.reduce(function(a, b) {
     return a + b;
   }, 0) / report.length;
