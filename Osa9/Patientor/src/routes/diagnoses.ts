@@ -8,6 +8,6 @@ router.get('/', (_req, res) => {
   const data = diagnoseService.getEntries();
   console.log(data);
   res.json(data);
-})
+});
 
 export default router;
