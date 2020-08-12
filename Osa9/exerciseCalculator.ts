@@ -18,13 +18,21 @@ interface ExerciseInput {
   target: number
 }
 
+let errorMessage = '';
+
 const parseArguments = (args: Array<string>) : ExerciseInput => {
-  if (args.length < 4) throw new Error('Not enough arguments.');
+  if (args.length < 4) {
+    errorMessage = 'Not enough arguments.';
+    throw new Error;
+  }
   console.log(args);
   let wantedArgs = new Array<number>();
   let i;
   for (i = 2; i < args.length; i++){
-    if (isNaN(Number(args[i]))) throw new Error('Values are not numbers.');
+    if (isNaN(Number(args[i]))) {
+      errorMessage = 'Values are not numbers.';
+      throw new Error;
+    }
     wantedArgs = wantedArgs.concat(Number(args[i]));
   }
 
@@ -73,6 +81,6 @@ try {
   const { period, target } = parseArguments(process.argv);
   console.log(calculateSuccess(period, target));
 } catch (e) {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-  console.log(e.message);
+  console.log(errorMessage);
+  errorMessage = '';
 }

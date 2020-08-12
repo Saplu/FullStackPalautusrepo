@@ -3,9 +3,17 @@ interface BmiInput{
   weight: number
 }
 
+let errorMessage = '';
+
 const parseBmiInput = (args: Array<string>) : BmiInput => {
-  if (args.length < 4) throw new Error('Too few arguments.');
-  if (args.length > 4) throw new Error('Too many arguments.');
+  if (args.length < 4) {
+    errorMessage = 'Too few arguments.';
+    throw new Error;
+  }
+  if (args.length > 4) {
+    errorMessage = 'Too many arguments.';
+    throw new Error;
+  }
 
   if (!isNaN(Number(args[2])) && !isNaN(Number(args[3]))) {
     return {
@@ -13,12 +21,13 @@ const parseBmiInput = (args: Array<string>) : BmiInput => {
       weight: Number(args[3])
     };
   } else {
-    throw new Error ('Values are not numbers.');
+    errorMessage = 'Values are not numbers.';
+    throw new Error;
   }
 };  
 
 const calculator = (a: number, b: number) : string => {
-  const c = (a / 100) ^2;
+  const c = Math.pow(a / 100 , 2);
   const value = b / c;
   if (value < 15) return "Very severely underweight";
   else if (value < 16) return "Severely underweight";
@@ -34,8 +43,8 @@ try {
   const input = parseBmiInput(process.argv);
   console.log(calculator(input.height, input.weight));
 } catch (e){
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-  console.log(e.message);
+  console.log(errorMessage);
+  errorMessage = '';
 }
 
 
