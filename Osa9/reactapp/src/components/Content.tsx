@@ -1,17 +1,9 @@
 import React from 'react';
 import { ContentProps } from '../types';
+import Parts from './Part'
 
 const Content: React.FC<ContentProps> = (props) => {
-  return(
-    <div>
-      {props.courses.map(c => 
-        <p key={c.name}>
-          {c.name}
-          {c.exerciseCount}
-        </p>
-      )}
-    </div>
-  )
+  return <Parts courses={props.courses}/>
 }
 
 export default Content;
