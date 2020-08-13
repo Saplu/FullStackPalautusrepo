@@ -1,6 +1,7 @@
 import patientData from '../../data/patients.json';
 
-import { PatientEntry, NonSensitivePatientEntry } from '../types';
+import { PatientEntry, NonSensitivePatientEntry, NewPatientEntry } from '../types';
+import { Guid } from 'guid-typescript';
 
 const patients: Array<PatientEntry> = patientData;
 
@@ -18,7 +19,18 @@ const getNonSensitiveEntries = (): NonSensitivePatientEntry [] => {
   }));
 };
 
+const addPatient = ( entry: NewPatientEntry) : PatientEntry => {
+  const newPatientEntry = {
+    id: Guid.create().toString(),
+    ...entry
+  };
+  patients.push(newPatientEntry);
+  console.log(newPatientEntry);
+  return newPatientEntry;
+};
+
 export default {
   getEntries,
-  getNonSensitiveEntries
+  getNonSensitiveEntries,
+  addPatient
 };
