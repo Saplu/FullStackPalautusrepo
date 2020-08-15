@@ -1,15 +1,15 @@
 import patientData from '../../data/patients.json';
 
-import { PatientEntry, NonSensitivePatientEntry, NewPatientEntry } from '../types';
+import { Patient, PublicPatient, NewPatientEntry } from '../types';
 import { Guid } from 'guid-typescript';
 
-const patients: Array<PatientEntry> = patientData;
+const patients: Array<Patient> = patientData;
 
-const getEntries = (): Array<PatientEntry> => {
+const getEntries = (): Array<Patient> => {
   return patients;
 };
 
-const getNonSensitiveEntries = (): NonSensitivePatientEntry [] => {
+const getNonSensitiveEntries = (): PublicPatient [] => {
   return patients.map(({ id, name, dateOfBirth, gender, occupation }) => ({
     id,
     name,
@@ -19,7 +19,12 @@ const getNonSensitiveEntries = (): NonSensitivePatientEntry [] => {
   }));
 };
 
-const addPatient = ( entry: NewPatientEntry) : PatientEntry => {
+const getPatientEntry = (id: string): Patient | undefined => {
+  console.log(patients.find(p => p.id === id));
+  return patients.find(p => p.id === id);
+}
+
+const addPatient = ( entry: NewPatientEntry) : Patient => {
   const newPatientEntry = {
     id: Guid.create().toString(),
     ...entry
@@ -31,5 +36,6 @@ const addPatient = ( entry: NewPatientEntry) : PatientEntry => {
 export default {
   getEntries,
   getNonSensitiveEntries,
-  addPatient
+  addPatient,
+  getPatientEntry
 };
