@@ -1,4 +1,4 @@
-import patientData from '../../data/patients.json';
+import patientData from '../../data/patients';
 
 import { Patient, PublicPatient, NewPatientEntry } from '../types';
 import { Guid } from 'guid-typescript';
@@ -20,7 +20,6 @@ const getNonSensitiveEntries = (): PublicPatient [] => {
 };
 
 const getPatientEntry = (id: string): Patient | undefined => {
-  console.log(patients.find(p => p.id === id));
   return patients.find(p => p.id === id);
 }
 
