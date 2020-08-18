@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { NewPatientEntry, Gender, EntryType, Patient } from './types';
+import { NewPatientEntry, Gender, EntryType, Patient, Entry, HealthCheckRating } from './types';
 
 const isString = (text: any): text is string => {
   return typeof text === 'string' || text instanceof String;
@@ -16,6 +16,10 @@ const isGender = (param: any): param is Gender => {
 const isEntryType = (param: any): param is EntryType => {
   return Object.values(EntryType).includes(param);
 };
+
+const isRatingType = (param: any): param is HealthCheckRating => {
+  return Object.values(HealthCheckRating).includes(param);
+}
 
 const parseString = (input: any): string => {
   if (!input || !isString(input)) {
@@ -45,6 +49,21 @@ const parseEntryType = (entryType: any): string => {
   return entryType.toString();
 }
 
+const parseType = (entryType: any): EntryType => {
+  if (!entryType || !isEntryType(entryType)) {
+    throw new Error(`Incorrect or missing entry type: ${entryType}`);
+  }
+  return entryType;
+}
+
+const parseHealthRatingType = (ratingType: any): HealthCheckRating => {
+  if (!ratingType || !isRatingType(ratingType.healthCheckRating)) {
+    throw new Error(`Incorrect or missing rating type: ${ratingType}`);
+  }
+  const rating : HealthCheckRating = ratingType;
+  return rating;
+};
+
 export const toPatient = (object: any): Patient => {
   const entries = object.entries;
   let newEntries: Array<string> = [];
@@ -70,3 +89,51 @@ export const toNewPatientEntry = (object: any): NewPatientEntry => {
   };
   return newEntry;
 };
+
+export const checkEntry = (object: any): Entry => {
+  const description = parseString(object.description);
+  const date = parseDate(object.date);
+  const specialist = parseString(object.specialist);
+  const type = parseType(object.type);
+  if (type === "Hospital"){
+    const dischargeDate = parseDate(object.discharge.date);
+    const criteria = parseString(object.discharge.criteria);
+    const hospitalEntry : Entry = {
+      id: '',
+      description,
+      date,
+      specialist,
+      type,
+      discharge: {
+        date: dischargeDate,
+        criteria
+      }
+    };
+    return hospitalEntry;
+  };
+  if (type === "HealthCheck"){
+    const healthCheckRating = parseHealthRatingType(object.healthCheckRating);
+    const healthCheckEntry : Entry = {
+      id: '',
+      description,
+      date,
+      specialist,
+      type,
+      healthCheckRating
+    };
+    return healthCheckEntry;
+  };
+  if (type === "OccupationalHealthCare"){
+    const employerName = parseString(object.employerName);
+    const occupationalEntry : Entry = {
+      id: '',
+      description,
+      date,
+      specialist,
+      type,
+      employerName
+    };
+    return occupationalEntry;
+  }
+  throw new Error('Incorrect type');
+}

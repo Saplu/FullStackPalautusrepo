@@ -1,7 +1,8 @@
 import patientData from '../../data/patients';
 
-import { Patient, PublicPatient, NewPatientEntry } from '../types';
+import { Patient, PublicPatient, NewPatientEntry, Entry } from '../types';
 import { Guid } from 'guid-typescript';
+import { checkEntry } from '../utils';
 
 const patients: Array<Patient> = patientData;
 
@@ -32,9 +33,64 @@ const addPatient = ( entry: NewPatientEntry) : Patient => {
   return newPatientEntry;
 };
 
+const addEntryToPatient = ( entry: Entry, id: string) : Entry | undefined => {
+  const patient = patients.find(p => p.id === id);
+  if (!patient){
+    throw new Error('Patient not found');
+  };
+  let newEntry : Entry;
+  switch( entry.type ) {
+    case "HealthCheck":
+      newEntry = {
+        type: "HealthCheck",
+        description: entry.description,
+        healthCheckRating: entry.healthCheckRating,
+        id: Guid.create().toString(),
+        date: entry.date,
+        specialist: entry.specialist,
+        diagnosisCodes: entry.diagnosisCodes
+      };
+      const checkedHealthEntry = checkEntry(newEntry);
+      console.log(checkedHealthEntry);
+      patient.entries.push(newEntry);
+      return newEntry;
+    case "Hospital":
+      newEntry = {
+        type: "Hospital",
+        description: entry.description,
+        date: entry.date,
+        id: Guid.create().toString(),
+        specialist: entry.specialist,
+        diagnosisCodes: entry.diagnosisCodes,
+        discharge: entry.discharge
+      };
+      const checkedHospitalEntry = checkEntry(newEntry);
+      console.log(checkedHospitalEntry);
+      console.log('pause');
+      console.log(newEntry);
+      patient.entries.push(newEntry);
+      return newEntry;
+    case "OccupationalHealthCare":
+      newEntry = {
+        type: "OccupationalHealthCare",
+        description: entry.description,
+        date: entry.date,
+        id: Guid.create().toString(),
+        specialist: entry.specialist,
+        diagnosisCodes: entry.diagnosisCodes,
+        employerName: entry.employerName,
+        sickLeave: entry.sickLeave
+      };
+      patient.entries.push(newEntry);
+      return newEntry;
+    default: throw new Error('Incorrect type');
+  };
+}
+
 export default {
   getEntries,
   getNonSensitiveEntries,
   addPatient,
-  getPatientEntry
+  getPatientEntry,
+  addEntryToPatient
 };
