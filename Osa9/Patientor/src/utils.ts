@@ -26,7 +26,7 @@ const isRatingType = (param: number): HealthCheckRating => {
     case 3: return HealthCheckRating.CriticalRisk;
     default: throw new Error('Value was out of bounds.');
   }
-}
+};
 
 const parseString = (input: any): string => {
   if (!input || !isString(input)) {
@@ -54,14 +54,14 @@ const parseEntryType = (entryType: any): string => {
     throw new Error(`Incorrect or missing entry type: ${entryType}`);
   }
   return entryType.toString();
-}
+};
 
 const parseType = (entryType: any): EntryType => {
   if (!entryType || !isEntryType(entryType)) {
     throw new Error(`Incorrect or missing entry type: ${entryType}`);
   }
   return entryType;
-}
+};
 
 const parseHealthRatingType = (ratingType: any): HealthCheckRating => {
   if (isNaN(ratingType)) {
@@ -84,7 +84,7 @@ export const toPatient = (object: any): Patient => {
     entries: newEntries,
   };
   return patient;
-}
+};
 
 export const toNewPatientEntry = (object: any): NewPatientEntry => {
   const newEntry: NewPatientEntry = {
@@ -118,7 +118,7 @@ export const checkEntry = (object: any): Entry => {
       }
     };
     return hospitalEntry;
-  };
+  }
   if (type === "HealthCheck"){
     const healthCheckRating = parseHealthRatingType(object.healthCheckRating);
     const healthCheckEntry : Entry = {
@@ -130,7 +130,7 @@ export const checkEntry = (object: any): Entry => {
       healthCheckRating
     };
     return healthCheckEntry;
-  };
+  }
   if (type === "OccupationalHealthCare"){
     const employerName = parseString(object.employerName);
     const occupationalEntry : Entry = {
@@ -144,4 +144,4 @@ export const checkEntry = (object: any): Entry => {
     return occupationalEntry;
   }
   throw new Error('Incorrect type');
-}
+};

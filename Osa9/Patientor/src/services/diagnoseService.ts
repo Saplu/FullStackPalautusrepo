@@ -8,10 +8,6 @@ const getEntries = (): Array<DiagnoseEntry> => {
   return diagnoses;
 };
 
-const addEntry = () => {
-  return null;
-};
-
 export default {
   getEntries,
   addEntry

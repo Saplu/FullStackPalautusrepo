@@ -14,7 +14,7 @@ router.get('/:id', (req, res) => {
   if (!data){
     res.status(404).send("Patient was not found");
   } else res.json(data);
-})
+});
 
 router.post('/', (req, res) => {
   try {
@@ -34,6 +34,6 @@ router.post('/:id/entries', (req, res) => {
   } catch(e){
     res.status(400).send(e.message);
   }
-})
+});
 
 export default router;

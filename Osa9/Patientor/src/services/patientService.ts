@@ -22,7 +22,7 @@ const getNonSensitiveEntries = (): PublicPatient [] => {
 
 const getPatientEntry = (id: string): Patient | undefined => {
   return patients.find(p => p.id === id);
-}
+};
 
 const addPatient = ( entry: NewPatientEntry) : Patient => {
   const newPatientEntry = {
@@ -37,7 +37,7 @@ const addEntryToPatient = ( entry: Entry, id: string) : Entry | undefined => {
   const patient = patients.find(p => p.id === id);
   if (!patient){
     throw new Error('Patient not found');
-  };
+  }
   let newEntry : Entry;
   switch( entry.type ) {
     case "HealthCheck":
@@ -82,8 +82,8 @@ const addEntryToPatient = ( entry: Entry, id: string) : Entry | undefined => {
       patient.entries.push(newEntry);
       return newEntry;
     default: throw new Error('Incorrect type');
-  };
-}
+  }
+};
 
 export default {
   getEntries,
