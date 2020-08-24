@@ -66,8 +66,6 @@ const addEntryToPatient = ( entry: Entry, id: string) : Entry | undefined => {
       };
       const checkedHospitalEntry = checkEntry(newEntry);
       console.log(checkedHospitalEntry);
-      console.log('pause');
-      console.log(newEntry);
       patient.entries.push(newEntry);
       return newEntry;
     case "OccupationalHealthCare":

@@ -17,8 +17,15 @@ const isEntryType = (param: any): param is EntryType => {
   return Object.values(EntryType).includes(param);
 };
 
-const isRatingType = (param: any): param is HealthCheckRating => {
-  return Object.values(HealthCheckRating).includes(param);
+const isRatingType = (param: number): HealthCheckRating => {
+  const valid: number = +param;
+  switch(valid){
+    case 0: return HealthCheckRating.Healthy;
+    case 1: return HealthCheckRating.LowRisk;
+    case 2: return HealthCheckRating.HighRisk;
+    case 3: return HealthCheckRating.CriticalRisk;
+    default: throw new Error('Value was out of bounds.');
+  }
 }
 
 const parseString = (input: any): string => {
@@ -57,10 +64,11 @@ const parseType = (entryType: any): EntryType => {
 }
 
 const parseHealthRatingType = (ratingType: any): HealthCheckRating => {
-  if (!ratingType || !isRatingType(ratingType.healthCheckRating)) {
+  if (isNaN(ratingType)) {
     throw new Error(`Incorrect or missing rating type: ${ratingType}`);
   }
-  const rating : HealthCheckRating = ratingType;
+  const value : number = ratingType;
+  const rating : HealthCheckRating = isRatingType(value);
   return rating;
 };
 
