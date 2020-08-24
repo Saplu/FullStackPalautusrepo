@@ -9,6 +9,5 @@ const getEntries = (): Array<DiagnoseEntry> => {
 };
 
 export default {
-  getEntries,
-  addEntry
+  getEntries
 };
